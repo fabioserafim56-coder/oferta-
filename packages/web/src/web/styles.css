@@ -1,0 +1,198 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme inline {
+  --color-ink: #0a0f0d;
+  --color-ink-2: #101815;
+  --color-ink-3: #16201c;
+  --color-bone: #f4f0e6;
+  --color-bone-dim: #c9c4b6;
+  --color-clay: #c9603f;
+  --color-clay-soft: #e08b6a;
+  --color-brass: #c2a25c;
+  --color-sage: #7e8f7c;
+  --color-alert: #d14343;
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --line: rgba(244, 240, 230, 0.12);
+  --line-dark: rgba(10, 15, 13, 0.12);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01";
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--color-clay);
+    color: #fff;
+  }
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .wrap {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .h-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-variation-settings: "opsz" 120;
+    letter-spacing: -0.025em;
+    line-height: 0.98;
+  }
+
+  .h1 {
+    font-size: clamp(2.5rem, 6.4vw, 5rem);
+  }
+
+  .h2 {
+    font-size: clamp(1.95rem, 4.2vw, 3.3rem);
+  }
+
+  .h3 {
+    font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-clay);
+  }
+
+  .lead {
+    font-size: clamp(1.02rem, 1.35vw, 1.18rem);
+    line-height: 1.75;
+    color: var(--color-bone-dim);
+    max-width: 60ch;
+  }
+
+  .accent {
+    font-style: italic;
+    color: var(--color-clay-soft);
+  }
+
+  .rule {
+    height: 1px;
+    width: 100%;
+    background: var(--line);
+  }
+
+  /* CTA */
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    background: var(--color-clay);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    padding: 1.15rem 2rem;
+    border-radius: 999px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.18) inset,
+      0 18px 40px -18px rgba(201, 96, 63, 0.8);
+    transition:
+      transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+      background 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .cta:hover {
+    background: #d46b47;
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.22) inset,
+      0 24px 50px -18px rgba(201, 96, 63, 0.95);
+  }
+
+  .cta:active {
+    transform: translateY(0);
+  }
+
+  .cta-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid var(--line);
+    color: var(--color-bone);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.9rem 1.6rem;
+    border-radius: 999px;
+    transition:
+      border-color 0.25s ease,
+      background 0.25s ease;
+  }
+
+  .cta-ghost:hover {
+    border-color: rgba(244, 240, 230, 0.35);
+    background: rgba(244, 240, 230, 0.04);
+  }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  .noise {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+}
